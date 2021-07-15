@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     private bool whiteNoHands;
 
     int _availableCellCount = 0;
-    int _unavailableTimes = 0;
+    public int _unavailableTimes = 0;
 
     public int BlackScore { get; private set; }
     public int WhiteScore { get; private set; }
@@ -58,7 +58,8 @@ public class GameManager : MonoBehaviour
         ChessBoard[2, 1] = Chess.State.Black;
         ChessBoard[2, 2] = Chess.State.White;
 
-        _isBlackPlayersTurn = true;
+        // _isBlackPlayersTurn = true;
+        _isBlackPlayersTurn = false;  // UpdateChessBoardState will flip the order for 1st hand
 
         BlackScore = 0;
         WhiteScore = 0;
@@ -72,7 +73,7 @@ public class GameManager : MonoBehaviour
 
         UpdateChessBoardState();
 
-        _isBlackPlayersTurn = !_isBlackPlayersTurn;
+        // _isBlackPlayersTurn = !_isBlackPlayersTurn;
     }
 
     void SetState(Vector2Int coordinate, bool isBlack)
@@ -137,6 +138,7 @@ public class GameManager : MonoBehaviour
 
     void UpdateChessBoardState()
     {
+        _isBlackPlayersTurn = !_isBlackPlayersTurn;
         for (int x = 0; x < 5; x++)
         {
             for (int y = 0; y < 5; y++)
@@ -150,6 +152,7 @@ public class GameManager : MonoBehaviour
 
         BlackScore = 0;
         WhiteScore = 0;
+        _availableCellCount = 0;
 
         for (int x = 0; x < 5; x++)
         {
@@ -173,18 +176,30 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        Debug.Log("availableCount: " + _availableCellCount);
+
         if (_availableCellCount == 0)
         {
             _unavailableTimes++;
+            Debug.Log("_unavailableTimes++ to: " + _unavailableTimes);
+
+        }
+
+        if (_unavailableTimes == 1)
+        {
+            UpdateChessBoardState();
+            if (GameOver == true){
+                return;
+            }
         }
 
         if (_unavailableTimes == 2)
         {
+            Debug.Log("Game Over! should see the message box.");
             GameOver = true;
+            ChessBoardVer++;
             return;
         }
-
-        _isBlackPlayersTurn = !_isBlackPlayersTurn;
 
         ChessBoardVer++;
     }
@@ -216,9 +231,9 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        Debug.Log("Before Click: " + ChessBoard[coordinate.x, coordinate.y]);
+        // Debug.Log("Before Click: " + ChessBoard[coordinate.x, coordinate.y]);
         ChessBoard[coordinate.x, coordinate.y] = _isBlackPlayersTurn ? Chess.State.Black : Chess.State.White;
-        Debug.Log("After Click: " + ChessBoard[coordinate.x, coordinate.y]);
+        // Debug.Log("After Click: " + ChessBoard[coordinate.x, coordinate.y]);
         // _isBlackPlayersTurn = !_isBlackPlayersTurn;
 
         UpdateChessBoardState();

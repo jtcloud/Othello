@@ -41,13 +41,17 @@ public class UIManager : MonoBehaviour
         if (_chessBoardVer != GameManager.Instance.ChessBoardVer)
         {
             _chessBoardVer = GameManager.Instance.ChessBoardVer;
-            Debug.Log("Current Board Version: " + _chessBoardVer);
+            // Debug.Log("Current Board Version: " + _chessBoardVer);
             RefreshChesses();
 
             if (GameManager.Instance.GameOver)
             {
                 ShowMessage("游戏结束!黑色: " + BlackScore.text + "白色: " + WhiteScore.text);
             }
+            // if (GameManager.Instance._unavailableTimes == 1)
+            // {
+            //     GameManager.Instance.
+            // }
         }
     }
 

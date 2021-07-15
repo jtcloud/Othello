@@ -55,7 +55,7 @@ public class Chess : MonoBehaviour
     public void OnClick()
     {
 
-        Debug.Log("clicked: " + Coordinate.x + ", " + Coordinate.y);
+        // Debug.Log("clicked: " + Coordinate.x + ", " + Coordinate.y);
 
         // Debug.Log("board size: " + UIManager.BoardSize);
 
