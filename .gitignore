@@ -1,0 +1,18 @@
+Logs/
+Library/
+*.meta
+UnityTempFile*
+!*.cs
+*.png
+*.cache
+*.asset
+*.hash
+Temp/
+.DS_Store
+Assembly-CSharp.csproj
+# 翻转棋.sln
+Assets/.DS_Store
+obj/Debug/.NETFramework,Version=v4.7.1.AssemblyAttributes.cs
+# Packages/manifest.json
+# Packages/packages-lock.json
+# ProjectSettings/ProjectVersion.txt
